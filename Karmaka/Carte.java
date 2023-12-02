@@ -5,12 +5,16 @@ public class Carte {
 	private Couleur couleur;
 	private int point;
 	
+	// Constructor
 	public Carte(String nom, Couleur couleur, int point) {
 		this.nom = nom;
 		this.couleur = couleur;
 		this.point = point;
 	}
+	
+	public void executerPouvoir(Joueur joueur) {}
 
+	//Getters and Setters
 	public String getNom() {
 		return nom;
 	}
