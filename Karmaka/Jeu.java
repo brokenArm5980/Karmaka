@@ -1,4 +1,4 @@
-package Karmaka;
+package Karmakaa;
 
 public class Jeu {
 
