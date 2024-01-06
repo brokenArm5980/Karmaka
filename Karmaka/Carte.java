@@ -22,7 +22,7 @@ public class Carte {
 				System.out.println("quelle carte voulez vous prendre ?");
 				ArrayList<Carte> tempVie = new ArrayList<Carte>();
 				tempVie = joueur.getVieFuture();
-				for (int i=0;i<joueur.vieFuture.size();i++) {
+				for (int i=0;i<joueur.getVieFuture().size();i++) {
 					System.out.println(tempVie.get(i).nom+ " entrez"+ i);
 				}
 		        Carte carteVieFuture = joueur.getVieFuture().get(0); // Prenez la première carte de la Vie Future

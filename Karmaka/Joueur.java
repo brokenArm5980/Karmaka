@@ -59,8 +59,23 @@ public class Joueur {
 		return totalPoint;
 	}
 	
-	public void transcender(){}
-	public void nouvelleVie(){}
+	public void transcender(Jeu jeu){
+		this.transcendance = this.transcendance + 1;
+		nouvelleVie(false, jeu);
+	}
+	
+	public void nouvelleVie(boolean gainAnneau, Jeu jeu){
+		if (gainAnneau == true) {
+			this.anneaux = this.anneaux + 1;
+		}
+		
+		// Ajouter les oeuvres dans la fosse
+		for(int i = 0; i < this.oeuvre.size(); i++) {
+			Carte carte = this.oeuvre.get(i);
+			carte.
+		}
+	}
+	
 	public void choisirCarte(){
 		for(int i = 0; i < this.saMain.size(); i++) {
 			System.out.println(saMain.get(i));
