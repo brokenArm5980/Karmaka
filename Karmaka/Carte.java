@@ -15,22 +15,20 @@ public class Carte {
 		this.point = point;
 	}
 	
-	public void executerPouvoir(Joueur joueur) {
+public void executerPouvoir(Joueur executeur, Joueur victime) {
 		
 		if(this.nom=="Transmigration") {
 			
-			if (!joueur.getVieFuture().isEmpty()) {
+			if (!executeur.getVieFuture().isEmpty()) {
 				System.out.println("quelle carte voulez vous prendre ?");
-				ArrayList<Carte> tempVie = new ArrayList<Carte>();
-				tempVie = joueur.getVieFuture();
-				for (int i=0;i<joueur.getVieFuture().size();i++) {
-					System.out.println(tempVie.get(i).nom+ " entrez"+ i);
+				for (int i=0;i<executeur.getVieFuture().size();i++) {
+					System.out.println(executeur.getVieFuture().get(i).nom+ " entrez"+ i);
 				}
 				Scanner scanner = new Scanner(System.in);
 				int choix = scanner.nextInt();
-		        Carte carteVieFuture = joueur.getVieFuture().get(choix); // Prenez la première carte de la Vie Future
-		        joueur.getMain().add(carteVieFuture); // Ajoutez cette carte à la Main du joueur
-		        joueur.getVieFuture().remove(choix); // Retirez la carte de la Vie Future
+		        Carte carteVieFuture = executeur.getVieFuture().get(choix); // Prenez la carte de la Vie Future
+		        executeur.getMain().add(carteVieFuture); // Ajoutez cette carte à la Main du joueur
+		        executeur.getVieFuture().remove(choix); // Retirez la carte de la Vie Future
 		    }
 		}
 		if(this.nom=="Coup d Oeil") {

@@ -31,9 +31,9 @@ public class Joueur {
 		ajouterOeuvre(carte);
 	}
 	
-	public void jouerPouvoir(int index, Joueur receveur){
+	public void jouerPouvoir(int index, Joueur executeur, Joueur victime){
 		Carte carte = this.saMain.get(index);
-		carte.executerPouvoir(receveur);
+		carte.executerPouvoir(executeur, victime);
 		retirerMain(index);
 	}
 	
