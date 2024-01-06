@@ -1,7 +1,7 @@
 package Karmaka;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 public class Jeu {
+	
 	private List<Carte> source;
 
 	    // Liste de cartes dans la fosse
