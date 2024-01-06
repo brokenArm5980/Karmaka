@@ -18,8 +18,22 @@ public class Jeu {
 
 	    // initialisation de la source
 	    initialiser_source();
+	    
+	    // distribution
+	    distribuer();
     }
+	
+	public void distribuer() {
+		
+	}
 
+	public void ajouterCarteSource(Carte carte) {
+	        this.source.add(carte);
+	    }
+	public void ajouterCarteFosse(Carte carte) {
+	        this.fosse.add(carte);
+	    }
+	
 	// initialisation de la source
 	public void initialiser_source() {
 		Carte carte;
@@ -142,16 +156,7 @@ public class Jeu {
 	    
 	    // Mélanger la source
 	    Collections.shuffle(source);
-	    
-	    System.out.println(source.get(0).getNom());
 	}
-
-	public void ajouterCarteSource(Carte carte) {
-	        this.source.add(carte);
-	    }
-	public void ajouterCarteFosse(Carte carte) {
-	        this.fosse.add(carte);
-	    }
 	
 	public static void main(String[] args) {
 	        Jeu monJeu = new Jeu();
