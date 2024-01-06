@@ -17,14 +17,14 @@ public class Jeu {
 	    this.joueur2 = new Joueur();
 
 	    // initialisation de la source
-	    initialiser_source();
+	    initialiserSource();
 	    
 	    // distribution
 	    distribuer();
     }
 	
 	public void distribuer() {
-		
+		ArrayList<Carte> saMain = new ArrayList<Carte>();
 	}
 
 	public void ajouterCarteSource(Carte carte) {
@@ -35,7 +35,7 @@ public class Jeu {
 	    }
 	
 	// initialisation de la source
-	public void initialiser_source() {
+	public void initialiserSource() {
 		Carte carte;
 	    
 	    // Transmigration

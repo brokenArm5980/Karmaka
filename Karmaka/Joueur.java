@@ -1,13 +1,12 @@
 package Karmaka;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 public class Joueur {
 	int anneaux;
 	int transcendance;
-	private List<Carte> pile;
-	private List<Carte> vieFuture;
-	private List<Carte> oeuvre;
-	private List<Carte> saMain;
+	private ArrayList<Carte> pile;
+	private ArrayList<Carte> vieFuture;
+	private ArrayList<Carte> oeuvre;
+	private ArrayList<Carte> saMain;
 	
 	
 	public Joueur() {
@@ -30,15 +29,17 @@ public class Joueur {
 		}
 		else {return false;}
 	}
-	public List<Carte> getMain(){
+	public ArrayList<Carte> getMain(){
 		return this.saMain;
 	}
-	public void setMain(){}
-	public List<Carte> getPile(){
+	public void setMain(ArrayList<Carte> saMain){
+		this.saMain = saMain;
+	}
+	public ArrayList<Carte> getPile(){
 		return this.pile;
 	}
 	public void setPile(){}
-	public List<Carte> getVieFuture(){
+	public ArrayList<Carte> getVieFuture(){
 		return this.vieFuture;
 	}
 	public void setVieFuture(){}
