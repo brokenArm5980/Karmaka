@@ -23,8 +23,23 @@ public class Jeu {
 	    distribuer();
     }
 	
+	// Distribuer les mains des deux joueurs
 	public void distribuer() {
 		ArrayList<Carte> saMain = new ArrayList<Carte>();
+		
+		// Distribution joueur2
+		for(int i = 0; i < 4; i++) {
+			saMain.add(this.source.getLast());
+			this.source.removeLast();
+		}
+		joueur1.setMain(saMain);
+		
+		// Distribution joueur2
+		for(int i = 0; i < 4; i++) {
+			saMain.add(this.source.getLast());
+			this.source.removeLast();
+		}
+		joueur2.setMain(saMain);
 	}
 
 	public void ajouterCarteSource(Carte carte) {
