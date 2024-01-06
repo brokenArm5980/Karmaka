@@ -10,13 +10,13 @@ public class Carte {
 	
 	
 	// Constructor
-	public Carte(String nom, Couleur couleur, int point) {
+	public Carte(String nom, Couleur couleur, int point, Jeu jeu) {
 		this.nom = nom;
 		this.couleur = couleur;
 		this.point = point;
 	}
 	
-	public void executerPouvoir(Joueur executeur, Joueur victime, Jeu jeu) {
+	public void executerPouvoir(Joueur executeur, Joueur victime) {
 		
 		if(this.nom=="Transmigration") {
 			
