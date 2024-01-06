@@ -21,7 +21,10 @@ public class Joueur {
 	public void piocherPile(){}
 	public void jouerPoint(Carte carte){}
 	public void jouerPouvoir(Carte carte){}
-	public void jouerFutur(Carte carte){}
+	public void jouerFutur(Carte carte){
+		this.saMain.remove(carte);
+		this.vieFuture.add(carte);
+	}
 	public void passerTour(){}
 	public boolean estGagnant(){
 		if (transcendance ==8) {
