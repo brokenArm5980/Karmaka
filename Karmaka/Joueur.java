@@ -29,8 +29,8 @@ public class Joueur {
 		this.oeuvre.add(carte);
 	}
 	
-	public void jouerPouvoir(Carte carte, Joueur receveur){
-		carte.executerPouvoir(receveur);
+	public void jouerPouvoir(Carte carte, Joueur executeur, Joueur victime){
+		carte.executerPouvoir(executeur, victime);
 		this.saMain.remove(carte);
 	}
 	
