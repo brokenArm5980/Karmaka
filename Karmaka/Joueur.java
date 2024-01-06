@@ -43,6 +43,10 @@ public class Joueur {
 		return this.vieFuture;
 	}
 	public void setVieFuture(){}
+	public ArrayList<Carte> getOeuvre(){
+		return this.vieFuture;
+	}
+	public void setOeuvre(){}
 	public int getAnneaux(){
 		return anneaux;
 	}
