@@ -8,7 +8,7 @@ public class Joueur {
 	private ArrayList<Carte> oeuvre;
 	private ArrayList<Carte> saMain;
 	
-	
+	// Constructeur
 	public Joueur() {
 		this.anneaux = 0;
 		this.transcendance = 4;
@@ -23,18 +23,26 @@ public class Joueur {
 		this.pile.remove(this.pile.size() - 1);
 		this.saMain.add(carte);
 	}
+	
 	public void jouerPoint(Carte carte){
 		this.saMain.remove(carte);
 		this.oeuvre.add(carte);
 	}
-	public void jouerPouvoir(Carte carte){}
+	
+	public void jouerPouvoir(Carte carte, Joueur receveur){
+		carte.executerPouvoir(receveur);
+		this.saMain.remove(carte);
+	}
 	
 	public void jouerFutur(Carte carte){
 		this.saMain.remove(carte);
 		this.vieFuture.add(carte);
 	}
 	
+	// Permet au joueur de passer son tour
 	public void passerTour(){}
+	
+	// Permet de vérifier si le joueur a gagné la partie
 	public boolean estGagnant(){
 		if (transcendance == 8) {
 			return true;
@@ -42,10 +50,22 @@ public class Joueur {
 		else {return false;}
 	}
 	
-	public void calculerPoint() {}
+	// Calculer les points accumulés par le joueur
+	public int calculerPoint(){
+		int totalPoint = 0;
+		for(int i = 0; i < this.oeuvre.size(); i++) {
+			totalPoint = totalPoint + oeuvre.get(i).getPoint();
+		}
+		return totalPoint;
+	}
+	
 	public void transcender(){}
 	public void nouvelleVie(){}
-	public void choisirCarte(){}
+	public void choisirCarte(){
+		for(int i = 0; i < this.saMain.size(); i++) {
+			System.out.println(saMain.get(i));
+		}
+	}
 	
 	// Getters and Setters
 	public ArrayList<Carte> getMain(){
