@@ -18,7 +18,11 @@ public class Joueur {
 		this.saMain = new ArrayList<>();
 	}
 	
-	public void piocherPile(){}
+	public void piocherPile(){
+		Carte carte = this.pile.get(this.pile.size() - 1);
+		this.pile.remove(this.pile.size() - 1);
+		this.saMain.add(carte);
+	}
 	public void jouerPoint(Carte carte){
 		this.saMain.remove(carte);
 		this.oeuvre.add(carte);
