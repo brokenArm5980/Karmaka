@@ -44,7 +44,7 @@ public class Joueur {
 	}
 	public void setVieFuture(){}
 	public ArrayList<Carte> getOeuvre(){
-		return this.vieFuture;
+		return this.oeuvre;
 	}
 	public void setOeuvre(){}
 	public int getAnneaux(){

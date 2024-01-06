@@ -2,10 +2,10 @@ package Karmaka;
 import java.util.*;
 public class Jeu {
 	// Liste de cartes représentant la fosse
-	private List<Carte> source;
+	private ArrayList<Carte> source;
 
 	// Liste de cartes dans la fosse
-	private List<Carte> fosse;
+	private ArrayList<Carte> fosse;
 	   
 	private Joueur joueur1;
 	private Joueur joueur2;
@@ -29,15 +29,15 @@ public class Jeu {
 		
 		// Distribution joueur2
 		for(int i = 0; i < 4; i++) {
-			saMain.add(this.source.getLast());
-			this.source.removeLast();
+			saMain.add(this.source.get(this.source.size() - 1));
+			this.source.get(this.source.size() - 1);
 		}
 		joueur1.setMain(saMain);
 		
 		// Distribution joueur2
 		for(int i = 0; i < 4; i++) {
-			saMain.add(this.source.getLast());
-			this.source.removeLast();
+			saMain.add(this.source.get(this.source.size() - 1));
+			this.source.get(this.source.size() - 1);
 		}
 		joueur2.setMain(saMain);
 	}
