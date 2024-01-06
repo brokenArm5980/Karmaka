@@ -19,7 +19,10 @@ public class Joueur {
 	}
 	
 	public void piocherPile(){}
-	public void jouerPoint(Carte carte){}
+	public void jouerPoint(Carte carte){
+		this.saMain.remove(carte);
+		this.oeuvre.add(carte);
+	}
 	public void jouerPouvoir(Carte carte){}
 	public void jouerFutur(Carte carte){
 		this.saMain.remove(carte);
