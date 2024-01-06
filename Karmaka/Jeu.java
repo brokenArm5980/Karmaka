@@ -27,23 +27,27 @@ public class Jeu {
 	public void distribuer() {
 		ArrayList<Carte> saMain = new ArrayList<Carte>();
 		
+		System.out.println(this.source.size());
+		
 		// Distribution joueur2
 		for(int i = 0; i < 4; i++) {
 			saMain.add(this.source.get(this.source.size() - 1));
-			this.source.get(this.source.size() - 1);
+			this.source.remove(this.source.size() - 1);
 		}
 		joueur1.setMain(saMain);
 		
-		saMain.clear();
+		System.out.println(this.source.size());
 		
-		System.out.println(saMain.size());
+		saMain.clear();
 		
 		// Distribution joueur2
 		for(int i = 0; i < 4; i++) {
 			saMain.add(this.source.get(this.source.size() - 1));
-			this.source.get(this.source.size() - 1);
+			this.source.remove(this.source.size() - 1);
 		}
 		joueur2.setMain(saMain);
+		
+		System.out.println(this.source.size());
 		
 		System.out.println(joueur1.getMain().get(0).getNom());
 		System.out.println(joueur2.getMain().get(0).getNom());
