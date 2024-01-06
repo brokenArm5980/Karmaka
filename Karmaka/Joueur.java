@@ -19,9 +19,9 @@ public class Joueur {
 	}
 	
 	public void piocherPile(){}
-	public void jouerPoint(Carte c){}
-	public void jouerPouvoir(Carte c){}
-	public void jouerFutur(Carte c){}
+	public void jouerPoint(Carte carte){}
+	public void jouerPouvoir(Carte carte){}
+	public void jouerFutur(Carte carte){}
 	public void passerTour(){}
 	public boolean estGagnant(){
 		if (transcendance ==8) {

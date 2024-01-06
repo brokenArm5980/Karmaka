@@ -21,6 +21,7 @@ public class Jeu {
 	    
 	    // distribution
 	    distribuer();
+	    
     }
 	
 	// Distribuer les mains des deux joueurs
@@ -42,6 +43,25 @@ public class Jeu {
 			this.source.remove(this.source.size() - 1);
 		}
 		joueur2.setMain(saMain);
+		
+		// Distribuer les piles
+		ArrayList<Carte> pile1 = new ArrayList<Carte>();
+        ArrayList<Carte> pile2 = new ArrayList<Carte>();
+        System.out.println(this.source.size());
+
+        for(int i = 0; i < 2; i++) {
+            pile1.add(this.source.get(this.source.size() - 1));
+            this.source.remove(this.source.size() - 1);
+        }
+        System.out.println(this.source.size());
+        joueur1.setPile(pile1);
+        for(int i = 0; i < 2; i++) {
+            pile2.add(this.source.get(this.source.size() - 1));
+            this.source.remove(this.source.size() - 1);
+        }
+        joueur2.setPile(pile2);
+        System.out.println(joueur1.getPile().get(0).getNom());
+        System.out.println(joueur2.getPile().get(0).getNom());
 	}
 
 	public void ajouterCarteSource(Carte carte) {
