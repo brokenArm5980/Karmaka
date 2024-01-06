@@ -19,24 +19,28 @@ public class Joueur {
 	}
 	
 	public void piocherPile(){
-		Carte carte = this.pile.get(this.pile.size() - 1);
-		this.pile.remove(this.pile.size() - 1);
-		this.saMain.add(carte);
+		int index = this.pile.size() - 1;
+		Carte carte = this.pile.get(index);
+		retirerPile(index);
+		ajouterMain(carte);
 	}
 	
-	public void jouerPoint(Carte carte){
-		this.saMain.remove(carte);
-		this.oeuvre.add(carte);
+	public void jouerPoint(int index){
+		Carte carte = this.saMain.get(index);
+		retirerMain(index);
+		ajouterOeuvre(carte);
 	}
 	
-	public void jouerPouvoir(Carte carte, Joueur executeur, Joueur victime){
+	public void jouerPouvoir(int index, Joueur executeur, Joueur victime){
+		Carte carte = this.saMain.get(index);
 		carte.executerPouvoir(executeur, victime);
-		this.saMain.remove(carte);
+		retirerMain(index);
 	}
 	
-	public void jouerFutur(Carte carte){
-		this.saMain.remove(carte);
-		this.vieFuture.add(carte);
+	public void jouerFutur(int index){
+		Carte carte = this.saMain.get(index);
+		retirerMain(index);
+		ajouterVieFuture(carte);
 	}
 	
 	// Permet au joueur de passer son tour
@@ -72,7 +76,15 @@ public class Joueur {
 		// Ajouter les oeuvres dans la fosse
 		for(int i = 0; i < this.oeuvre.size(); i++) {
 			Carte carte = this.oeuvre.get(i);
-			carte.
+			retirerOeuvre(i);
+			jeu.ajouterCarteFosse(carte);
+		}
+		
+		// Prendre les cartes de la vie future
+		for (int i = 0; i < this.vieFuture.size(); i++) {
+			Carte carte = this.vieFuture.get(i);
+			retirerVieFuture(i);
+			ajouterMain(carte);
 		}
 	}
 	
@@ -80,6 +92,35 @@ public class Joueur {
 		for(int i = 0; i < this.saMain.size(); i++) {
 			System.out.println(saMain.get(i));
 		}
+	}
+	
+	// Ajouter et Retirer
+	public void ajouterMain(Carte carte) {
+		this.saMain.add(carte);
+	}
+	public void retirerMain(int index) {
+		this.saMain.remove(index);
+	}
+	
+	public void ajouterPile(Carte carte) {
+		this.pile.add(carte);
+	}
+	public void retirerPile(int index) {
+		this.pile.remove(index);
+	}
+	
+	public void ajouterVieFuture(Carte carte) {
+		this.vieFuture.add(carte);
+	}
+	public void retirerVieFuture(int index) {
+		this.vieFuture.remove(index);
+	}
+	
+	public void ajouterOeuvre(Carte carte) {
+		this.oeuvre.add(carte);
+	}
+	public void retirerOeuvre(int index) {
+		this.oeuvre.remove(index);
 	}
 	
 	// Getters and Setters
