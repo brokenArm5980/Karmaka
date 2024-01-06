@@ -1,133 +1,168 @@
 package Karmaka;
-
-import java.util.ArrayList;
-import java.util.Scanner;
-
-public class Carte {
-	private String nom;
-	private Couleur couleur;
-	private int point;
+import java.util.*;
+public class Joueur {
+	int anneaux;
+	int transcendance;
+	private ArrayList<Carte> pile;
+	private ArrayList<Carte> vieFuture;
+	private ArrayList<Carte> oeuvre;
+	private ArrayList<Carte> saMain;
 	
-	// Constructor
-	public Carte(String nom, Couleur couleur, int point) {
-		this.nom = nom;
-		this.couleur = couleur;
-		this.point = point;
+	// Constructeur
+	public Joueur() {
+		this.anneaux = 0;
+		this.transcendance = 4;
+		this.pile = new ArrayList<>();
+		this.vieFuture = new ArrayList<>();
+		this.oeuvre = new ArrayList<>();
+		this.saMain = new ArrayList<>();
 	}
 	
-	public void executerPouvoir(Joueur executeur, Joueur victime) {
+	public void piocherPile(){
+		int index = this.pile.size() - 1;
+		Carte carte = this.pile.get(index);
+		retirerPile(index);
+		ajouterMain(carte);
+	}
+	
+	public void jouerPoint(int index){
+		Carte carte = this.saMain.get(index);
+		retirerMain(index);
+		ajouterOeuvre(carte);
+	}
+	
+	public void jouerPouvoir(int index, Joueur executeur, Joueur victime){
+		Carte carte = this.saMain.get(index);
+		carte.executerPouvoir(executeur, victime);
+		retirerMain(index);
+	}
+	
+	public void jouerFutur(int index){
+		Carte carte = this.saMain.get(index);
+		retirerMain(index);
+		ajouterVieFuture(carte);
+	}
+	
+	// Permet au joueur de passer son tour
+	public void passerTour(){}
+	
+	// Permet de vérifier si le joueur a gagné la partie
+	public boolean estGagnant(){
+		if (transcendance == 8) {
+			return true;
+		}
+		else {return false;}
+	}
+	
+	// Calculer les points accumulés par le joueur
+	public int calculerPoint(){
+		int totalPoint = 0;
+		for(int i = 0; i < this.oeuvre.size(); i++) {
+			totalPoint = totalPoint + oeuvre.get(i).getPoint();
+		}
+		return totalPoint;
+	}
+	
+	public void transcender(Jeu jeu){
+		this.transcendance = this.transcendance + 1;
+		nouvelleVie(false, jeu);
+	}
+	
+	public void nouvelleVie(boolean gainAnneau, Jeu jeu){
+		if (gainAnneau == true) {
+			this.anneaux = this.anneaux + 1;
+		}
 		
-		if(this.nom=="Transmigration") {
-			
-			if (!executeur.getVieFuture().isEmpty()) {
-				System.out.println("quelle carte voulez vous prendre ?");
-				for (int i=0;i<executeur.getVieFuture().size();i++) {
-					System.out.println(executeur.getVieFuture().get(i).nom+ " entrez"+ i);
-				}
-				Scanner scanner = new Scanner(System.in);
-				int choix = scanner.nextInt();
-		        Carte carteVieFuture = executeur.getVieFuture().get(choix); // Prenez la carte de la Vie Future
-		        executeur.getMain().add(carteVieFuture); // Ajoutez cette carte à la Main du joueur
-		        executeur.getVieFuture().remove(choix); // Retirez la carte de la Vie Future
-		    }
+		// Ajouter les oeuvres dans la fosse
+		for(int i = 0; i < this.oeuvre.size(); i++) {
+			Carte carte = this.oeuvre.get(i);
+			retirerOeuvre(i);
+			jeu.ajouterCarteFosse(carte);
 		}
-		if(this.nom=="Coup d Oeil") {
-			
-		}
-		if(this.nom=="Destinee") {
-			
-		}
-		if(this.nom=="Reves Brises") {
-
-		}
-		if(this.nom=="Deni") {
-			
-		}
-		if(this.nom=="Duperie") {
-			
-		}
-		if(this.nom=="Vol") {
-			
-		}
-		if(this.nom=="Lendemain") {
-			
-		}
-		if(this.nom=="Recyclage") {
-			
-		}
-		if(this.nom=="Sauvetage") {
-			
-		}
-		if(this.nom=="Longevite") {
-			
-		}
-		if(this.nom=="Semis") {
-			
-		}
-		if(this.nom=="Voyage") {
-			
-		}
-		if(this.nom=="Jubile") {
-			
-		}
-		if(this.nom=="Panique") {
-			
-		}
-		if(this.nom=="Dernier Souffle") {
-			
-		}
-		if(this.nom=="Crise") {
-			
-		}
-		if(this.nom=="Roulette") {
-			
-		}
-		if(this.nom=="Fournaise") {
-			
-		}
-		if(this.nom=="Vengeance") {
-			
-		}
-		if(this.nom=="Bassesse") {
-			
-		}
-		if(this.nom=="Incarnation") {
-			
-		}
-		if(this.nom=="Mimetisme") {
-			
+		
+		// Prendre les cartes de la vie future
+		for (int i = 0; i < this.vieFuture.size(); i++) {
+			Carte carte = this.vieFuture.get(i);
+			retirerVieFuture(i);
+			ajouterMain(carte);
 		}
 	}
-	//Getters and Setters
-	public String getNom() {
-		return nom;
-	}
-
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
-
-	public Couleur getCouleur() {
-		return couleur;
-	}
-
-	public void setCouleur(Couleur couleur) {
-		this.couleur = couleur;
-	}
-
-	public int getPoint() {
-		return point;
-	}
-
-	public void setPoint(int point) {
-		this.point = point;
-	}
-	public String toString() {
-        return "Carte{" +
-                "nom='" + this.nom + '\'' +
-                ", couleur=" + this.couleur +
-                ", point=" + this.point +
-                '}';
-    }
 	
+	public void choisirCarte(){
+		for(int i = 0; i < this.saMain.size(); i++) {
+			System.out.println(saMain.get(i));
+		}
+	}
+	
+	// Ajouter et Retirer
+	public void ajouterMain(Carte carte) {
+		this.saMain.add(carte);
+	}
+	public void retirerMain(int index) {
+		this.saMain.remove(index);
+	}
+	
+	public void ajouterPile(Carte carte) {
+		this.pile.add(carte);
+	}
+	public void retirerPile(int index) {
+		this.pile.remove(index);
+	}
+	
+	public void ajouterVieFuture(Carte carte) {
+		this.vieFuture.add(carte);
+	}
+	public void retirerVieFuture(int index) {
+		this.vieFuture.remove(index);
+	}
+	
+	public void ajouterOeuvre(Carte carte) {
+		this.oeuvre.add(carte);
+	}
+	public void retirerOeuvre(int index) {
+		this.oeuvre.remove(index);
+	}
+	
+	// Getters and Setters
+	public ArrayList<Carte> getMain(){
+		return this.saMain;
+	}
+	public void setMain(ArrayList<Carte> saMain){
+		this.saMain = new ArrayList<Carte>(saMain);
+	}
+	
+	public ArrayList<Carte> getPile(){
+		return this.pile;
+	}
+	public void setPile(ArrayList<Carte> pile){
+		this.pile = new ArrayList<Carte>(pile);
+	}
+	
+	public ArrayList<Carte> getVieFuture(){
+		return this.vieFuture;
+	}
+	public void setVieFuture(ArrayList<Carte> vieFuture){
+		this.vieFuture = new ArrayList<Carte>(vieFuture);
+	}
+	
+	public ArrayList<Carte> getOeuvre(){
+		return this.oeuvre;
+	}
+	public void setOeuvre(ArrayList<Carte> oeuvre){
+		this.oeuvre = new ArrayList<Carte>(oeuvre);
+	}
+	
+	public int getAnneaux(){
+		return anneaux;
+	}
+	public void setAnneaux(int anneaux){
+		this.anneaux = anneaux;
+	}
+	
+	public int getTranscendance(){
+		return transcendance;
+	}
+	public void setTranscendance(int transcendance){
+		this.transcendance = transcendance;
+	}
 }
