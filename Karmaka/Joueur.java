@@ -7,15 +7,17 @@ public class Joueur {
 	private ArrayList<Carte> vieFuture;
 	private ArrayList<Carte> oeuvre;
 	private ArrayList<Carte> saMain;
+	private Jeu jeu;
 	
 	// Constructeur
-	public Joueur() {
+	public Joueur(Jeu jeu) {
 		this.anneaux = 0;
 		this.transcendance = 4;
 		this.pile = new ArrayList<>();
 		this.vieFuture = new ArrayList<>();
 		this.oeuvre = new ArrayList<>();
 		this.saMain = new ArrayList<>();
+		this.jeu = jeu;
 	}
 	
 	public void piocherPile(){
@@ -63,12 +65,12 @@ public class Joueur {
 		return totalPoint;
 	}
 	
-	public void transcender(Jeu jeu){
+	public void transcender(){
 		this.transcendance = this.transcendance + 1;
-		nouvelleVie(false, jeu);
+		nouvelleVie(false);
 	}
 	
-	public void nouvelleVie(boolean gainAnneau, Jeu jeu){
+	public void nouvelleVie(boolean gainAnneau){
 		if (gainAnneau == true) {
 			this.anneaux = this.anneaux + 1;
 		}
@@ -77,7 +79,7 @@ public class Joueur {
 		for(int i = 0; i < this.oeuvre.size(); i++) {
 			Carte carte = this.oeuvre.get(i);
 			retirerOeuvre(i);
-			jeu.ajouterCarteFosse(carte);
+			this.jeu.ajouterCarteFosse(carte);
 		}
 		
 		// Prendre les cartes de la vie future
@@ -85,6 +87,17 @@ public class Joueur {
 			Carte carte = this.vieFuture.get(i);
 			retirerVieFuture(i);
 			ajouterMain(carte);
+		}
+		
+		// Si la main contient moins de 6 cartes
+		if (this.saMain.size() < 6) {
+			while(true){ // On pioche jusqu'à atteindre 6 cartes (main + pile)
+				Carte carte = jeu.piocher();
+				ajouterPile(carte);
+				if (this.saMain.size() + this.pile.size() > 5) {
+					break;
+				}
+			}
 		}
 	}
 	

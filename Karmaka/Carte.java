@@ -8,14 +8,15 @@ public class Carte {
 	private Couleur couleur;
 	private int point;
 	
+	
 	// Constructor
-	public Carte(String nom, Couleur couleur, int point) {
+	public Carte(String nom, Couleur couleur, int point, Jeu jeu) {
 		this.nom = nom;
 		this.couleur = couleur;
 		this.point = point;
 	}
 	
-public void executerPouvoir(Joueur executeur, Joueur victime) {
+	public void executerPouvoir(Joueur executeur, Joueur victime) {
 		
 		if(this.nom=="Transmigration") {
 			
@@ -33,9 +34,17 @@ public void executerPouvoir(Joueur executeur, Joueur victime) {
 		}
 		if(this.nom=="Coup d Oeil") {
 			
+			if (!victime.getMain().isEmpty()) {
+				System.out.println("Voici les cartes de votre adversaire:");
+				for (int i=0;i<victime.getMain().size();i++) {
+					System.out.println(victime.getMain().get(i).nom);
+				}
+			}
+	
+			// à coder : rejouer une carte
+			
 		}
 		if(this.nom=="Destinee") {
-			
 		}
 		if(this.nom=="Reves Brises") {
 
@@ -122,5 +131,12 @@ public void executerPouvoir(Joueur executeur, Joueur victime) {
 	public void setPoint(int point) {
 		this.point = point;
 	}
+	public String toString() {
+        return "Carte{" +
+                "nom='" + this.nom + '\'' +
+                ", couleur=" + this.couleur +
+                ", point=" + this.point +
+                '}';
+    }
 	
 }
