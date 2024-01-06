@@ -33,20 +33,26 @@ public class Joueur {
 		return this.saMain;
 	}
 	public void setMain(ArrayList<Carte> saMain){
-		this.saMain = saMain;
+		this.saMain = new ArrayList<Carte>(saMain);
 	}
 	public ArrayList<Carte> getPile(){
 		return this.pile;
 	}
-	public void setPile(){}
+	public void setPile(ArrayList<Carte> pile){
+		this.pile = new ArrayList<Carte>(pile);
+	}
 	public ArrayList<Carte> getVieFuture(){
 		return this.vieFuture;
 	}
-	public void setVieFuture(){}
+	public void setVieFuture(ArrayList<Carte> vieFuture){
+		this.vieFuture = new ArrayList<Carte>(vieFuture);
+	}
 	public ArrayList<Carte> getOeuvre(){
 		return this.oeuvre;
 	}
-	public void setOeuvre(){}
+	public void setOeuvre(ArrayList<Carte> oeuvre){
+		this.oeuvre = new ArrayList<Carte>(oeuvre);
+	}
 	public int getAnneaux(){
 		return anneaux;
 	}
