@@ -1,6 +1,7 @@
 package Karmaka;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Carte {
 	private String nom;
@@ -25,9 +26,11 @@ public class Carte {
 				for (int i=0;i<joueur.getVieFuture().size();i++) {
 					System.out.println(tempVie.get(i).nom+ " entrez"+ i);
 				}
-		        Carte carteVieFuture = joueur.getVieFuture().get(0); // Prenez la première carte de la Vie Future
+				Scanner scanner = new Scanner(System.in);
+				int choix = scanner.nextInt();
+		        Carte carteVieFuture = joueur.getVieFuture().get(choix); // Prenez la première carte de la Vie Future
 		        joueur.getMain().add(carteVieFuture); // Ajoutez cette carte à la Main du joueur
-		        joueur.getVieFuture().remove(0); // Retirez la carte de la Vie Future
+		        joueur.getVieFuture().remove(choix); // Retirez la carte de la Vie Future
 		    }
 		}
 		if(this.nom=="Coup d Oeil") {
