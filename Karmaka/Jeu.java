@@ -18,10 +18,7 @@ public class Jeu {
 
 	    // initialisation de la source
 	    initialiser_source();
-	    
-	    
-	    
-	    }
+    }
 
 	// initialisation de la source
 	public void initialiser_source() {
@@ -142,6 +139,11 @@ public class Jeu {
 	    for(int i = 0; i < 2; i++) {
 	    	this.source.add(carte);
 	    }
+	    
+	    // Mélanger la source
+	    Collections.shuffle(source);
+	    
+	    System.out.println(source.get(0).getNom());
 	}
 
 	public void ajouterCarteSource(Carte carte) {
