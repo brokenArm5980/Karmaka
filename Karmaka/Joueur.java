@@ -28,55 +28,65 @@ public class Joueur {
 		this.oeuvre.add(carte);
 	}
 	public void jouerPouvoir(Carte carte){}
+	
 	public void jouerFutur(Carte carte){
 		this.saMain.remove(carte);
 		this.vieFuture.add(carte);
 	}
+	
 	public void passerTour(){}
 	public boolean estGagnant(){
-		if (transcendance ==8) {
+		if (transcendance == 8) {
 			return true;
 		}
 		else {return false;}
 	}
+	
+	public void calculerPoint() {}
+	public void transcender(){}
+	public void nouvelleVie(){}
+	public void choisirCarte(){}
+	
+	// Getters and Setters
 	public ArrayList<Carte> getMain(){
 		return this.saMain;
 	}
 	public void setMain(ArrayList<Carte> saMain){
 		this.saMain = new ArrayList<Carte>(saMain);
 	}
+	
 	public ArrayList<Carte> getPile(){
 		return this.pile;
 	}
 	public void setPile(ArrayList<Carte> pile){
 		this.pile = new ArrayList<Carte>(pile);
 	}
+	
 	public ArrayList<Carte> getVieFuture(){
 		return this.vieFuture;
 	}
 	public void setVieFuture(ArrayList<Carte> vieFuture){
 		this.vieFuture = new ArrayList<Carte>(vieFuture);
 	}
+	
 	public ArrayList<Carte> getOeuvre(){
 		return this.oeuvre;
 	}
 	public void setOeuvre(ArrayList<Carte> oeuvre){
 		this.oeuvre = new ArrayList<Carte>(oeuvre);
 	}
+	
 	public int getAnneaux(){
 		return anneaux;
 	}
-	public void setAnneaux(){}
+	public void setAnneaux(int anneaux){
+		this.anneaux = anneaux;
+	}
+	
 	public int getTranscendance(){
 		return transcendance;
 	}
-	public void setTranscendance(){}
-	public void calculerPoint() {}
-	public void transcender(){}
-	public void nouvelleVie(){}
-	public void choisirCarte(){}
-	
-	
-	
-
+	public void setTranscendance(int transcendance){
+		this.transcendance = transcendance;
+	}
 }
