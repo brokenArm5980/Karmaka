@@ -170,6 +170,7 @@ public class Joueur implements Serializable {
      * Methode permettant d'ajouter une carte a la main du joueur.
      * @param carte La carte a ajouter a la main.
      */
+	// Ajouter et Retirer
 	public void ajouterMain(Carte carte) {
 		this.saMain.add(carte);
 	}
