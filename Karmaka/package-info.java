@@ -1,17 +1,10 @@
 /**
- * Le package P1 contient des classes representant des equipements electroniques.
- * Ces classes incluent une Lampe, un Commutateur, et un Interrupteur pour illustrer
- * le fonctionnement d'un système d'eclairage simple.
- * <p>
- * Les classes de ce package peuvent etre utilisees pour modeliser des composants
- * d'un système domotique basique.
- * </p>
- *
- * @since 1.0
- * @see Karmaka.Carte
- * @see Karmaka.Couleur
- * @see Karmaka.Jeu
- * @see Karmaka.Joueur
+ * Le package Karmaka contient les classes necessaires pour implementer le jeu de cartes Karmaka.
+ * Ce jeu met en scene deux joueurs s'affrontant pour gagner des points
+ * et transcender vers des niveaux superieurs.
+ * Les classes incluses dans ce package sont : Carte, Couleur, Joueur et Jeu.
  * 
+ * @author Briffa_Halliez
+ * @version 1.0
  */
 package Karmaka;

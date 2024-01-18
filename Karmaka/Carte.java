@@ -1,7 +1,14 @@
 package Karmaka;
 
 import java.util.*;
+
 import java.io.*;
+/**
+ * La classe Carte represente une carte du jeu Karmaka.
+ * Chaque carte possede un nom, une couleur, un nombre de points, 
+ * et une reference vers le jeu auquel elle appartient.
+ * Les cartes peuvent avoir differents pouvoirs definis dans la methode executerPouvoir.
+ */
 
 public class Carte implements Serializable {
 	private static final long serialVersionUID = 4L;
@@ -10,20 +17,26 @@ public class Carte implements Serializable {
 	private int point;
 	private Jeu jeu;	
 	
-	// Constructor
+    /**
+     * Constructeur de la classe Carte.
+     * @param nom Le nom de la carte.
+     * @param couleur La couleur de la carte.
+     * @param point Le nombre de points associes a la carte.
+     * @param jeu La reference vers le jeu auquel la carte appartient.
+     */
+	
 	public Carte(String nom, Couleur couleur, int point, Jeu jeu) {
 		this.nom = nom;
 		this.couleur = couleur;
 		this.point = point;
 		this.jeu = jeu;
 	}
-	/***
-	 * npiidhvbibdpvbqidUBVPIUBSDPIUVBIUvbDVIBSD
-	 * @param executeur
-	 * @param victime
-	 */
 	
-	
+    /**
+     * Methode permettant d'executer le pouvoir de la carte en fonction de son nom.
+     * @param executeur Le joueur executant le pouvoir.
+     * @param victime Le joueur subissant le pouvoir.
+     */
 	public void executerPouvoir(Joueur executeur, Joueur victime) {
 		
 		if(this.nom=="Transmigration") { // Placez dans votre Main n’importe quelle carte de votre Vie Future.
@@ -44,7 +57,7 @@ public class Carte implements Serializable {
 					choix = scanner.nextInt();
 				}
 		        Carte carteVieFuture = executeur.getVieFuture().get(choix); // Prenez la carte de la Vie Future
-		        executeur.getMain().add(carteVieFuture); // Ajoutez cette carte à la Main du joueur
+		        executeur.getMain().add(carteVieFuture); // Ajoutez cette carte a la Main du joueur
 		        executeur.getVieFuture().remove(choix); // Retirez la carte de la Vie Future
 		    }
 		}
@@ -63,8 +76,8 @@ public class Carte implements Serializable {
 			
 		}
 		
-		if(this.nom=="Destinee") { // Regardez les 3 premières cartes de la Source ; ajoutez-en jusqu’à 2 à votre Vie Future. Replacez le reste dans l'ordre souhaité.
-			System.out.println("Voici les 3 premières cartes de la source :");
+		if(this.nom=="Destinee") { // Regardez les 3 premieres cartes de la Source ; ajoutez-en jusqu’a 2 a votre Vie Future. Replacez le reste dans l'ordre souhaite.
+			System.out.println("Voici les 3 premieres cartes de la source :");
 			ArrayList<Carte> source = this.jeu.getSource();
 			ArrayList<Carte> listeTroisCartes = new ArrayList<Carte>();
 			int nbCarte;
@@ -233,7 +246,7 @@ public class Carte implements Serializable {
 			}
 		}
 		
-		if(this.nom=="Reves Brises") { // Placez la première carte de la Vie Future d'un rival sur la vôtre.
+		if(this.nom=="Reves Brises") { // Placez la premiere carte de la Vie Future d'un rival sur la vôtre.
 			if(victime.getVieFuture().size() > 0) {
 				int index = victime.getVieFuture().size() - 1;
 				Carte carte = victime.getVieFuture().get(index);
@@ -242,9 +255,9 @@ public class Carte implements Serializable {
 			}
 		}
 		
-		if(this.nom=="Deni") { // Défaussez une carte de votre Main. Copiez le pouvoir de cette carte.
+		if(this.nom=="Deni") { // Defaussez une carte de votre Main. Copiez le pouvoir de cette carte.
 			while(true) {
-				System.out.println("Choisissez une carte à jouer avec Déni :");
+				System.out.println("Choisissez une carte a jouer avec Deni :");
 				ArrayList<Carte> main = executeur.getMain();
 				for(int i=0; i<main.size(); i++) {
 					System.out.println(main.get(i).getNom() + ": tapez " + i);
@@ -266,13 +279,13 @@ public class Carte implements Serializable {
 			}
 		}
 		
-		if(this.nom=="Duperie") { // Regardez 3 cartes de la Main d’un rival ; ajoutez-en une à votre Main.
+		if(this.nom=="Duperie") { // Regardez 3 cartes de la Main d’un rival ; ajoutez-en une a votre Main.
 			ArrayList<Carte> main = victime.getMain();
 			int tailleMain = main.size();
 			System.out.println("Votre adversaire a " + tailleMain + " cartes");
 			if(tailleMain > 3) {
-				System.out.println("Choisissez les numéro des cartes que vous voulez voir allant de 1 à " + tailleMain);
-				System.out.println("Premier numéro :");
+				System.out.println("Choisissez les numero des cartes que vous voulez voir allant de 1 a " + tailleMain);
+				System.out.println("Premier numero :");
 				int num1 = 0;
 				if(executeur.getNom() == "bot1") {
 					double al = Math.random() * tailleMain + 1;
@@ -283,7 +296,7 @@ public class Carte implements Serializable {
 					Scanner scanner = new Scanner(System.in);
 					num1 = scanner.nextInt();
 				}
-				System.out.println("Deuxième numéro :");
+				System.out.println("Deuxieme numero :");
 				int num2 = 0;
 				if(executeur.getNom() == "bot1") {
 					double al = Math.random() * tailleMain + 1;
@@ -294,7 +307,7 @@ public class Carte implements Serializable {
 					Scanner scanner = new Scanner(System.in);
 					num2 = scanner.nextInt();
 				}
-				System.out.println("Troisième numéro :");
+				System.out.println("Troisieme numero :");
 				int num3 = 0;
 				if(executeur.getNom() == "bot1") {
 					double al = Math.random() * tailleMain + 1;
@@ -309,7 +322,7 @@ public class Carte implements Serializable {
 				System.out.println(main.get(num1).getNom());
 				System.out.println(main.get(num2).getNom());
 				System.out.println(main.get(num3).getNom());
-				System.out.println("Ajouter une carte à votre main. Carte 1: tapez 1, Carte 2: tapez 2, Carte 3: tapez 3");
+				System.out.println("Ajouter une carte a votre main. Carte 1: tapez 1, Carte 2: tapez 2, Carte 3: tapez 3");
 				int index = 0;
 				if(executeur.getNom() == "bot1") {
 					double al = Math.random() * 3 + 1;
@@ -338,7 +351,7 @@ public class Carte implements Serializable {
 				System.out.println(main.get(0).getNom());
 				System.out.println(main.get(1).getNom());
 				System.out.println(main.get(2).getNom());
-				System.out.println("Ajouter une carte à votre main. Carte 1: tapez 1, Carte 2: tapez 2, Carte 3: tapez 3");
+				System.out.println("Ajouter une carte a votre main. Carte 1: tapez 1, Carte 2: tapez 2, Carte 3: tapez 3");
 				int index = 0;
 				if(executeur.getNom() == "bot1") {
 					double al = Math.random() * 3 + 1;
@@ -366,7 +379,7 @@ public class Carte implements Serializable {
 				System.out.println("Voici les cartes dont dispose votre adversaire :");
 				System.out.println(main.get(0).getNom());
 				System.out.println(main.get(1).getNom());
-				System.out.println("Ajouter une carte à votre main. Carte 1: tapez 1, Carte 2: tapez 2");
+				System.out.println("Ajouter une carte a votre main. Carte 1: tapez 1, Carte 2: tapez 2");
 				int index = 0;
 				if(executeur.getNom() == "bot1") {
 					double al = Math.random() * 2 + 1;
@@ -389,7 +402,7 @@ public class Carte implements Serializable {
 			else if(tailleMain == 1) {
 				System.out.println("Voici les cartes dont dispose votre adversaire :");
 				System.out.println(main.get(0).getNom());
-				System.out.println("La carte a été ajoutée à votre main.");
+				System.out.println("La carte a ete ajoutee a votre main.");
 				executeur.ajouterMain(main.get(0));
 				victime.retirerMain(0);
 			}
@@ -398,7 +411,7 @@ public class Carte implements Serializable {
 			}
 		}
 		
-		if(this.nom=="Vol") { // Placez dans votre Main l’Oeuvre Exposée d'un rival.
+		if(this.nom=="Vol") { // Placez dans votre Main l’Oeuvre Exposee d'un rival.
 			ArrayList<Carte> oeuvre = victime.getOeuvre();
 			int taille = oeuvre.size();
 			
@@ -413,7 +426,7 @@ public class Carte implements Serializable {
 			}
 		}
 		
-		if(this.nom=="Lendemain") { // Puisez une carte à la Source. Vous pouvez ensuite jouer une autre carte.
+		if(this.nom=="Lendemain") { // Puisez une carte a la Source. Vous pouvez ensuite jouer une autre carte.
 			ArrayList<Carte> source = this.jeu.getSource();
 			int taille = source.size();
 			
@@ -428,13 +441,13 @@ public class Carte implements Serializable {
 			Carte carte = source.get(index);
 			executeur.ajouterMain(carte);
 			this.jeu.retirerCarteSource(index);
-			System.out.println("La carte: " + carte.getNom() + " a été ajouté à votre main");
+			System.out.println("La carte: " + carte.getNom() + " a ete ajoute a votre main");
 			
 			// Le joueur peut rejouer
 			this.jeu.changerTour();
 		}
 		
-		if(this.nom=="Recyclage") { // Ajoutez à votre Vie Future une des 3 dernières cartes de la Fosse.
+		if(this.nom=="Recyclage") { // Ajoutez a votre Vie Future une des 3 dernieres cartes de la Fosse.
 			ArrayList<Carte> fosse = this.jeu.getFosse();
 			int taille = fosse.size();
 			
@@ -448,7 +461,7 @@ public class Carte implements Serializable {
 				carte = fosse.get(0);
 				executeur.ajouterVieFuture(carte);
 				this.jeu.retirerCarteFosse(0);
-				System.out.println("La carte " + carte.getNom() + " a été ajouté à votre vie future");
+				System.out.println("La carte " + carte.getNom() + " a ete ajoute a votre vie future");
 			}
 			else if(taille == 2) {
 				System.out.println("Il y a deux cartes dans la fosse :");
@@ -456,7 +469,7 @@ public class Carte implements Serializable {
 				System.out.println(fosse.get(0).getNom());
 				System.out.println(fosse.get(1).getNom());
 				
-				System.out.println("Choisissez une carte à ajouter à votre vie future: carte 1 (tapez 1) ou carte 2 (tapez 2)");
+				System.out.println("Choisissez une carte a ajouter a votre vie future: carte 1 (tapez 1) ou carte 2 (tapez 2)");
 				int index = 0;
 				if(executeur.getNom() == "bot1") {
 					double al = Math.random() * 2 + 1;
@@ -472,23 +485,23 @@ public class Carte implements Serializable {
 					carte = fosse.get(0);
 					this.jeu.retirerCarteFosse(0);
 					executeur.ajouterVieFuture(carte);
-					System.out.println("La carte " + carte.getNom() + " a été ajouté à votre vie future");
+					System.out.println("La carte " + carte.getNom() + " a ete ajoute a votre vie future");
 				}
 				else if(index == 2) {
 					carte = fosse.get(1);
 					this.jeu.retirerCarteFosse(1);
 					executeur.ajouterVieFuture(carte);
-					System.out.println("La carte " + carte.getNom() + " a été ajouté à votre vie future");
+					System.out.println("La carte " + carte.getNom() + " a ete ajoute a votre vie future");
 				}
 			}
 			else if(taille > 2) {
-				System.out.println("Voici les trois dernières cartes de la fosse :");
+				System.out.println("Voici les trois dernieres cartes de la fosse :");
 				
 				for(int i=0; i<3; i++) {
 					System.out.println(fosse.get(taille - 1 - i).getNom());
 				}
 				
-				System.out.println("Choisissez une carte à ajouter à votre vie future: carte 1 (tapez 1) ou carte 2 (tapez 2) ou carte 3 (tapez 3)");
+				System.out.println("Choisissez une carte a ajouter a votre vie future: carte 1 (tapez 1) ou carte 2 (tapez 2) ou carte 3 (tapez 3)");
 				int index = 0;
 				if(executeur.getNom() == "bot1") {
 					double al = Math.random() * 3 + 1;
@@ -514,11 +527,11 @@ public class Carte implements Serializable {
 				carte = fosse.get(index2);
 				this.jeu.retirerCarteFosse(index2);
 				executeur.ajouterVieFuture(carte);
-				System.out.println("La carte " + carte.getNom() + " a été ajouté à votre vie future");
+				System.out.println("La carte " + carte.getNom() + " a ete ajoute a votre vie future");
 			}
 			
 		}
-		if(this.nom=="Sauvetage") { // Ajoutez à votre Main une des 3 dernières cartes de la Fosse.
+		if(this.nom=="Sauvetage") { // Ajoutez a votre Main une des 3 dernieres cartes de la Fosse.
 			ArrayList<Carte> fosse = this.jeu.getFosse();
 			int taille = fosse.size();
 			
@@ -532,7 +545,7 @@ public class Carte implements Serializable {
 				carte = fosse.get(0);
 				executeur.ajouterMain(carte);
 				this.jeu.retirerCarteFosse(0);
-				System.out.println("La carte " + carte.getNom() + " a été ajouté à votre main");
+				System.out.println("La carte " + carte.getNom() + " a ete ajoute a votre main");
 			}
 			else if(taille == 2) {
 				System.out.println("Il y a deux cartes dans la fosse :");
@@ -540,7 +553,7 @@ public class Carte implements Serializable {
 				System.out.println(fosse.get(0).getNom());
 				System.out.println(fosse.get(1).getNom());
 				
-				System.out.println("Choisissez une carte à ajouter à votre main: carte 1 (tapez 1) ou carte 2 (tapez 2)");
+				System.out.println("Choisissez une carte a ajouter a votre main: carte 1 (tapez 1) ou carte 2 (tapez 2)");
 				int index = 0;
 				if(executeur.getNom() == "bot1") {
 					double al = Math.random() * 2 + 1;
@@ -556,23 +569,23 @@ public class Carte implements Serializable {
 					carte = fosse.get(0);
 					this.jeu.retirerCarteFosse(0);
 					executeur.ajouterMain(carte);
-					System.out.println("La carte " + carte.getNom() + " a été ajouté à votre main");
+					System.out.println("La carte " + carte.getNom() + " a ete ajoute a votre main");
 				}
 				else if(index == 2) {
 					carte = fosse.get(1);
 					this.jeu.retirerCarteFosse(1);
 					executeur.ajouterMain(carte);
-					System.out.println("La carte " + carte.getNom() + " a été ajouté à votre vie future");
+					System.out.println("La carte " + carte.getNom() + " a ete ajoute a votre vie future");
 				}
 			}
 			else if(taille > 2) {
-				System.out.println("Voici les trois dernières cartes de la fosse :");
+				System.out.println("Voici les trois dernieres cartes de la fosse :");
 				
 				for(int i=0; i<3; i++) {
 					System.out.println(fosse.get(taille - 1 - i).getNom());
 				}
 				
-				System.out.println("Choisissez une carte à ajouter à votre main: carte 1 (tapez 1) ou carte 2 (tapez 2) ou carte 3 (tapez 3)");
+				System.out.println("Choisissez une carte a ajouter a votre main: carte 1 (tapez 1) ou carte 2 (tapez 2) ou carte 3 (tapez 3)");
 				int index = 0;
 				if(executeur.getNom() == "bot1") {
 					double al = Math.random() * 3 + 1;
@@ -598,11 +611,11 @@ public class Carte implements Serializable {
 				carte = fosse.get(index2);
 				this.jeu.retirerCarteFosse(index2);
 				executeur.ajouterMain(carte);
-				System.out.println("La carte " + carte.getNom() + " a été ajouté à votre vie future");
+				System.out.println("La carte " + carte.getNom() + " a ete ajoute a votre vie future");
 			}
 		}
 		
-		if(this.nom=="Longevite") { // Placez 2 cartes puisées à la Source sur la Pile d'un joueur.
+		if(this.nom=="Longevite") { // Placez 2 cartes puisees a la Source sur la Pile d'un joueur.
 			ArrayList<Carte> source = this.jeu.getSource();
 			int taille = source.size();
 			
@@ -615,7 +628,7 @@ public class Carte implements Serializable {
 			Carte carte1 = source.get(taille - 1);
 			Carte carte2 = source.get(taille - 2);
 			
-			// Ajout des carte à la pile du joueur victime
+			// Ajout des carte a la pile du joueur victime
 			victime.ajouterPile(carte1);
 			victime.ajouterPile(carte2);
 			
@@ -624,7 +637,7 @@ public class Carte implements Serializable {
 			this.jeu.retirerCarteSource(this.jeu.getSource().size() - 1);
 		}
 		
-		if(this.nom=="Semis") { // Puisez 2 cartes à la Source, puis placez sur votre Vie Future 2 cartes de votre Main.
+		if(this.nom=="Semis") { // Puisez 2 cartes a la Source, puis placez sur votre Vie Future 2 cartes de votre Main.
 			ArrayList<Carte> source = this.jeu.getSource();
 			int taille_source = source.size();
 			ArrayList<Carte> main = executeur.getMain();
@@ -651,14 +664,14 @@ public class Carte implements Serializable {
 			taille_source = source.size();
 			
 			if(taille_main == 2) {
-				System.out.println("Les deux cartes de votre main ont été placé dans votre vie future");
+				System.out.println("Les deux cartes de votre main ont ete place dans votre vie future");
 				executeur.ajouterVieFuture(main.get(0));
 				executeur.retirerMain(0);
 				executeur.ajouterVieFuture(main.get(0));
 				executeur.retirerMain(0);
 			}
 			else if(taille_main > 1) {
-				System.out.println("Choisissez une première carte à placer dans votre vie future :");
+				System.out.println("Choisissez une premiere carte a placer dans votre vie future :");
 				for(int i=0; i<taille_main; i++) {
 					System.out.println(main.get(i) + ": tapez " + i);
 				}
@@ -679,7 +692,7 @@ public class Carte implements Serializable {
 				main = executeur.getMain();
 				taille_main = main.size();
 				
-				System.out.println("Choisissez une seconde carte à placer dans votre vie future :");
+				System.out.println("Choisissez une seconde carte a placer dans votre vie future :");
 				for(int i=0; i<taille_main; i++) {
 					System.out.println(main.get(i) + ": tapez " + i);
 				}
@@ -698,7 +711,7 @@ public class Carte implements Serializable {
 			}
 		}
 		
-		if(this.nom=="Voyage") { // Puisez 3 cartes à la Source. Vous pouvez ensuite jouer une autre carte.
+		if(this.nom=="Voyage") { // Puisez 3 cartes a la Source. Vous pouvez ensuite jouer une autre carte.
 			ArrayList<Carte> source = this.jeu.getSource();
 			int taille = source.size();
 			
@@ -717,7 +730,7 @@ public class Carte implements Serializable {
 			this.jeu.changerTour();			
 		}
 		
-		if(this.nom=="Jubile") { // Placez jusqu’à 2 cartes de votre Main sur vos Oeuvres.
+		if(this.nom=="Jubile") { // Placez jusqu’a 2 cartes de votre Main sur vos Oeuvres.
 			ArrayList<Carte> main = executeur.getMain();
 			int taille = main.size();
 			
@@ -779,7 +792,7 @@ public class Carte implements Serializable {
 					executeur.retirerMain(index);
 				}
 				else if(choix == 2) {
-					System.out.println("Première carte :");
+					System.out.println("Premiere carte :");
 					for(int i=0; i<taille; i++) {
 						System.out.println(main.get(i).getNom() + ": tapez " + i);
 					}
@@ -820,12 +833,12 @@ public class Carte implements Serializable {
 					
 				}
 				else if(choix == 3) {
-					System.out.println("Aucune carte n'a été placé dans vos oeuvres");
+					System.out.println("Aucune carte n'a ete place dans vos oeuvres");
 				}
 			}
 		}
 		
-		if(this.nom=="Panique") { // Défaussez la première carte de la Pile d'un joueur. Vous pouvez ensuite jouer une autre carte.
+		if(this.nom=="Panique") { // Defaussez la premiere carte de la Pile d'un joueur. Vous pouvez ensuite jouer une autre carte.
 			ArrayList<Carte> pile = victime.getPile();
 			int taille = pile.size();
 			
@@ -833,7 +846,7 @@ public class Carte implements Serializable {
 				System.out.println("Votre adversaire n'a pas de carte dans sa pile");
 			}
 			else {
-				System.out.println("Choisissez une carte de la pile de votre adversaire a défausser :");
+				System.out.println("Choisissez une carte de la pile de votre adversaire a defausser :");
 				for(int i=0; i<taille; i++) {
 					System.out.print(pile.get(i).getNom() + ": tapez " + i);
 				}
@@ -856,7 +869,7 @@ public class Carte implements Serializable {
 			this.jeu.changerTour();
 		}
 		
-		if(this.nom=="Dernier Souffle") { // Le joueur de votre choix défausse une carte de sa Main.
+		if(this.nom=="Dernier Souffle") { // Le joueur de votre choix defausse une carte de sa Main.
 			ArrayList<Carte> main = victime.getMain();
 			int taille = main.size();
 			
@@ -864,7 +877,7 @@ public class Carte implements Serializable {
 				System.out.println("La main du joueur " + victime.getNom() + " est vide.");
 			}
 			else if(taille > 0) {
-				System.out.println("Joueur " + victime.getNom() + ", vous devez défosser une carte de votre main parmis :");
+				System.out.println("Joueur " + victime.getNom() + ", vous devez defosser une carte de votre main parmis :");
 				for(int i=0; i<taille; i++) {
 					System.out.println(main.get(i).getNom() + ": tapez " + i);
 				}
@@ -884,7 +897,7 @@ public class Carte implements Serializable {
 			}
 		}
 		
-		if(this.nom=="Crise") { // Le rival de votre choix défausse une de ses Oeuvres.
+		if(this.nom=="Crise") { // Le rival de votre choix defausse une de ses Oeuvres.
 			ArrayList<Carte> oeuvre = victime.getOeuvre();
 			int taille = oeuvre.size();
 			
@@ -912,7 +925,7 @@ public class Carte implements Serializable {
 			}
 		}
 		
-		if(this.nom=="Roulette") { // Défaussez jusqu’à 2 cartes de votre Main. Vous pouvez ensuite puiser à la Source autant de carte(s) + 1.			
+		if(this.nom=="Roulette") { // Defaussez jusqu’a 2 cartes de votre Main. Vous pouvez ensuite puiser a la Source autant de carte(s) + 1.			
 			int totalAPiocher = 1;
 			
 			if(executeur.getMain().size() == 0) {
@@ -920,7 +933,7 @@ public class Carte implements Serializable {
 				totalAPiocher = 1;
 			}
 			else if(executeur.getMain().size() == 1) {
-				System.out.println("Vous pouvez défausser votre carte : " + executeur.getMain().get(0).getNom() + ", oui: tapez 1, non: tapez 2");
+				System.out.println("Vous pouvez defausser votre carte : " + executeur.getMain().get(0).getNom() + ", oui: tapez 1, non: tapez 2");
 				int choix = 0;
 				if(executeur.getNom() == "bot1") {
 					double al = Math.random() * 2 + 1;
@@ -938,12 +951,12 @@ public class Carte implements Serializable {
 					totalAPiocher = 2;
 				}
 				else if(choix == 2) {
-					System.out.println("Aucune carte n'a été défaussée");
+					System.out.println("Aucune carte n'a ete defaussee");
 					totalAPiocher = 1;
 				}
 			}
 			else if(executeur.getMain().size() > 1) {
-				System.out.println("Vous avez " + executeur.getMain().size() + " cartes dans votre main, voulez-vous en défausser ? (oui: tapez 1, non: tapez 2)");
+				System.out.println("Vous avez " + executeur.getMain().size() + " cartes dans votre main, voulez-vous en defausser ? (oui: tapez 1, non: tapez 2)");
 				int choix = 0;
 				if(executeur.getNom() == "bot1") {
 					double al = Math.random() * 2 + 1;
@@ -956,11 +969,11 @@ public class Carte implements Serializable {
 				};
 				
 				if(choix == 2) {
-					System.out.println("Aucune carte n'a été défaussée");
+					System.out.println("Aucune carte n'a ete defaussee");
 					totalAPiocher = 1;
 				}
 				else if(choix == 1) {
-					System.out.println("Choisissez une carte à défausser :");
+					System.out.println("Choisissez une carte a defausser :");
 					for(int i=0; i<executeur.getMain().size(); i++) {
 						System.out.println(executeur.getMain().get(i).getNom() + ": tapez " + i);
 					}
@@ -980,7 +993,7 @@ public class Carte implements Serializable {
 					
 					totalAPiocher = totalAPiocher + 1;
 					
-					System.out.println("Voulez-vous défausser une autre carte ? (oui: tapez 1, non: tapez 2)");
+					System.out.println("Voulez-vous defausser une autre carte ? (oui: tapez 1, non: tapez 2)");
 					int choix2 = 0;
 					if(executeur.getNom() == "bot1") {
 						double al = Math.random() * 2 + 1;
@@ -993,10 +1006,10 @@ public class Carte implements Serializable {
 					};
 					
 					if(choix2 == 2) {
-						System.out.println("Une seule carte a été défaussée");
+						System.out.println("Une seule carte a ete defaussee");
 					}
 					else if(choix == 1) {
-						System.out.println("Choisissez une carte à défausser :");
+						System.out.println("Choisissez une carte a defausser :");
 						for(int i=0; i<executeur.getMain().size(); i++) {
 							System.out.println(executeur.getMain().get(i).getNom() + ": tapez " + i);
 						}
@@ -1027,7 +1040,7 @@ public class Carte implements Serializable {
 					Carte carte = this.jeu.getSource().get(this.jeu.getSource().size() - 1);
 					executeur.ajouterMain(carte);
 					this.jeu.retirerCarteSource(this.jeu.getSource().size());
-					System.out.println("Carte piochée : " + carte.getNom());
+					System.out.println("Carte piochee : " + carte.getNom());
 					if(i++ < totalAPiocher) {
 						System.out.println("Voulez vous piocher une autre carte ? 1: oui, 2: non");
 						int choix2 = 0;
@@ -1049,20 +1062,20 @@ public class Carte implements Serializable {
 			
 		}
 		
-		if(this.nom=="Fournaise") { // Défaussez les 2 premières cartes de la Vie Future d'un rival.
+		if(this.nom=="Fournaise") { // Defaussez les 2 premieres cartes de la Vie Future d'un rival.
 			int taille = victime.getVieFuture().size();
 			
 			if(taille == 0) {
 				System.out.println("Le joueur " + victime.getNom() + " n'a pas de carte dans sa vie future");
 			}
 			else if(taille == 1) {
-				System.out.println("Votre adversaire n'a qu'une seule carte dans sa vie future, elle a été défossée");
+				System.out.println("Votre adversaire n'a qu'une seule carte dans sa vie future, elle a ete defossee");
 				Carte carte = victime.getVieFuture().get(0);
 				victime.retirerVieFuture(0);
 				this.jeu.ajouterCarteFosse(carte);
 			}
 			else if(taille>1) {
-				System.out.println("Les deux premières cartes de la vie future de votre adversaire ont été défossées");
+				System.out.println("Les deux premieres cartes de la vie future de votre adversaire ont ete defossees");
 				for(int i=0; i<2; i++) {
 					Carte carte = victime.getVieFuture().get(victime.getVieFuture().size() - 1);
 					victime.retirerVieFuture(victime.getVieFuture().size() - 1);
@@ -1071,7 +1084,7 @@ public class Carte implements Serializable {
 			}
 		}
 		
-		if(this.nom=="Vengeance") { // Défaussez l’Oeuvre Exposée d’un rival.
+		if(this.nom=="Vengeance") { // Defaussez l’Oeuvre Exposee d’un rival.
 			int taille = victime.getOeuvre().size();
 			
 			if(taille==0) {
@@ -1081,24 +1094,24 @@ public class Carte implements Serializable {
 				Carte carte = victime.getOeuvre().get(taille - 1);
 				this.jeu.ajouterCarteFosse(carte);
 				victime.retirerOeuvre(taille - 1);
-				System.out.println("L'oeuvre exposée du joueur " + victime.getNom() + " a été défaussée");
+				System.out.println("L'oeuvre exposee du joueur " + victime.getNom() + " a ete defaussee");
 			}
 		}
 		
-		if(this.nom=="Bassesse") { // Défaussez au hasard 2 cartes de la Main d’un rival.
+		if(this.nom=="Bassesse") { // Defaussez au hasard 2 cartes de la Main d’un rival.
 			int taille = victime.getMain().size();
 			
 			if (taille == 0) {
 				System.out.println("Votre adversaire n'a pas de carte en main");
 			}
 			if(taille == 1) {
-				System.out.println("Votre adversaire avait une carte en main, elle a été défaussée");
+				System.out.println("Votre adversaire avait une carte en main, elle a ete defaussee");
 				Carte carte = victime.getMain().get(0);
 				this.jeu.ajouterCarteFosse(carte);
 				victime.retirerMain(0);
 			}
 			if(taille == 2) {
-				System.out.println("Votre adversaire avait deux cartes en main, elles ont été défaussées");
+				System.out.println("Votre adversaire avait deux cartes en main, elles ont ete defaussees");
 				for(int i=0; i<2; i++) {
 					Carte carte = victime.getMain().get(0);
 					this.jeu.ajouterCarteFosse(carte);
@@ -1106,7 +1119,7 @@ public class Carte implements Serializable {
 				}
 			}
 			if(taille > 2) {
-				System.out.println("Votre adversaire avait " + taille + " cartes en main, 2 ont été défaussées au hasard");
+				System.out.println("Votre adversaire avait " + taille + " cartes en main, 2 ont ete defaussees au hasard");
 				for(int i=0; i<2; i++) {
 					int nombreAleatoire = (int) Math.random() * (victime.getMain().size() - 1);
 					Carte carte = victime.getMain().get(nombreAleatoire);
@@ -1142,7 +1155,7 @@ public class Carte implements Serializable {
 			}
 		}
 		
-		if(this.nom=="Mimetisme") { // Choisissez un Rival. Copiez le pouvoir de son Oeuvre Exposée.
+		if(this.nom=="Mimetisme") { // Choisissez un Rival. Copiez le pouvoir de son Oeuvre Exposee.
 			int taille = victime.getOeuvre().size();
 			
 			if(taille == 0) {
@@ -1168,30 +1181,54 @@ public class Carte implements Serializable {
 			}
 		}
 	}
-	//Getters and Setters
+    /**
+     * Getter pour le nom de la carte.
+     * @return Le nom de la carte.
+     */
 	public String getNom() {
 		return nom;
 	}
-
+    /**
+     * Setter pour le nom de la carte.
+     * @param nom Le nouveau nom de la carte.
+     */
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
-
+    /**
+     * Getter pour la couleur de la carte.
+     * @return La couleur de la carte.
+     */
 	public Couleur getCouleur() {
 		return couleur;
 	}
+    /**
+     * Setter pour la couleur de la carte.
+     * @param couleur La nouvelle couleur de la carte.
+     */
 
 	public void setCouleur(Couleur couleur) {
 		this.couleur = couleur;
 	}
 
+    /**
+     * Getter pour le nombre de points de la carte.
+     * @return Le nombre de points de la carte.
+     */
 	public int getPoint() {
 		return point;
 	}
-
+	   /**
+     * Setter pour le nombre de points de la carte.
+     * @param point Le nouveau nombre de points de la carte.
+     */
 	public void setPoint(int point) {
 		this.point = point;
 	}
+	  /**
+     * Methode permettant d'obtenir une representation textuelle de la carte.
+     * @return Une chaîne de caracteres representant la carte.
+     */
 	public String toString() {
         return "Carte{" +
                 "nom='" + this.nom + '\'' +

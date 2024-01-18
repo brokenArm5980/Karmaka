@@ -1,8 +1,16 @@
 package Karmaka;
 import java.util.*;
 import java.io.*;
+/**
+ * La classe Jeu represente le jeu Karmaka, un jeu de cartes ou les joueurs
+ * s'affrontent pour gagner des points d'illumination et transcender.
+ * Elle gere la source de cartes, la fosse, les joueurs, le tour, et les actions du jeu.
+ * 
+ * @author Briffa_Halliez
+ * @version 1.0
+ */
 public class Jeu implements Serializable {
-	// Liste de cartes représentant la fosse
+	// Liste de cartes representant la fosse
 	private ArrayList<Carte> source;
 	// Liste de cartes dans la fosse
 	private ArrayList<Carte> fosse;
@@ -12,13 +20,21 @@ public class Jeu implements Serializable {
 	
 	private int tour = 1;
 	private static final long serialVersionUID = 1L;
-
+    /**
+     * Constructeur par defaut de la classe Jeu.
+     * Initialise les listes de cartes source et fosse.
+     */
 	public Jeu() {
 		this.source = new ArrayList<Carte>();
 	    this.fosse = new ArrayList<Carte>();
     }
 	
-	// Permet de piocher une carte dans la source
+    /**
+     * Permet de piocher une carte dans la source.
+     * Si la source est vide, elle est completee.
+     * 
+     * @return La carte piochee.
+     */
 	public Carte piocher() {
 		if(this.source.size() == 0) {
 			this.completerSource();
@@ -28,7 +44,9 @@ public class Jeu implements Serializable {
 		return carte;
 	}
 	
-	// Distribuer les mains des deux joueurs
+    /**
+     * Distribue les mains des deux joueurs a partir de la source.
+     */
 	public void distribuer() {
 		ArrayList<Carte> saMain = new ArrayList<Carte>();
 		
@@ -64,21 +82,42 @@ public class Jeu implements Serializable {
         }
         joueur2.setPile(pile2);
 	}
-
+    /**
+     * Ajoute une carte a la source.
+     * 
+     * @param carte La carte a ajouter.
+     */
 	public void ajouterCarteSource(Carte carte) {
 	        this.source.add(carte);
 	    }
+    /**
+     * Ajoute une carte a la fosse.
+     * 
+     * @param carte La carte a ajouter.
+     */
 	public void ajouterCarteFosse(Carte carte) {
 	        this.fosse.add(carte);
 	    }
+    /**
+     * Retire une carte de la source a l'index specifie.
+     * 
+     * @param index L'index de la carte a retirer.
+     */
 	public void retirerCarteSource(int index) {
         this.source.remove(index);
     }
+    /**
+     * Retire une carte de la fosse a l'index specifie.
+     * 
+     * @param index L'index de la carte a retirer.
+     */
 	public void retirerCarteFosse(int index) {
         this.fosse.remove(index);
     }
 	
-	// initialisation de la source
+    /**
+     * Initialise la source avec toutes les cartes du jeu Karmaka et la melange.
+     */
 	public void initialiserSource() {
 		Carte carte;
 	    
@@ -198,11 +237,13 @@ public class Jeu implements Serializable {
 	    	this.source.add(carte);
 	    }
 	    
-	    // Mélanger la source
+	    // Melanger la source
 	    Collections.shuffle(this.source);
 	}
 	
-	// Change le joueur qui doit joueur
+    /**
+     * Change le joueur actif pour le tour suivant.
+     */
 	public void changerTour()
 	{
 		if(tour == 1) {
@@ -213,7 +254,11 @@ public class Jeu implements Serializable {
 		}
 	}
 	
-	// Retourne le joueur actuel
+    /**
+     * Retourne le joueur actuel qui doit jouer.
+     * 
+     * @return Le joueur actuel.
+     */
 	public Joueur selectionnerJoueurActuel()
 	{
 		if(this.tour == 1) {
@@ -222,7 +267,11 @@ public class Jeu implements Serializable {
 		return this.joueur2;
 	}
 	
-	// Retourne le joueur qui ne joue pas
+    /**
+     * Retourne le joueur qui ne doit pas jouer pendant ce tour, celui qui subit les attaques.
+     * 
+     * @return Le joueur qui ne joue pas.
+     */
 	public Joueur selectionnerJoueurVictime()
 	{
 		if(this.tour == 1) {
@@ -231,19 +280,24 @@ public class Jeu implements Serializable {
 		return this.joueur1;
 	}
 	
-	// Déroulement d'un tour
+    /**
+     * Deroulement d'un tour du joueur humain.
+     * 
+     * @param joueurActuel Le joueur actuel.
+     * @param joueur2 Le joueur adverse.
+     */
 	public void jouer(Joueur joueurActuel, Joueur joueur2)
 	{
 		// Le joueur piocher une carte de sa pile
 		if(joueurActuel.getPile().size() > 0) {
 	        Carte carte = joueurActuel.getPile().get(joueurActuel.getPile().size() - 1); // Prendre la carte de la Pile
-	        joueurActuel.ajouterMain(carte); // Ajouter cette carte à la Main du joueur
+	        joueurActuel.ajouterMain(carte); // Ajouter cette carte a la Main du joueur
 	        joueurActuel.retirerPile(joueurActuel.getPile().size() - 1); // Retirer la carte de la Pile
 	        int a = 0;
 	        for (int i=0; i<joueurActuel.getPile().size(); i++) {
 	        	a = a + 1;
 	        }
-	        System.out.println(joueurActuel.getNom() + " : Vous avez pioché une carte de votre pile: " + carte.getNom());
+	        System.out.println(joueurActuel.getNom() + " : Vous avez pioche une carte de votre pile: " + carte.getNom());
 		}
 		
 		System.out.println("Voici votre main :");
@@ -265,7 +319,7 @@ public class Jeu implements Serializable {
 		
 		
 		if(choix == 1) {
-			System.out.println("Choisissez une carte à jouer pour ses points :");
+			System.out.println("Choisissez une carte a jouer pour ses points :");
 			
 			ArrayList<Carte> main = joueurActuel.getMain();
 			
@@ -277,7 +331,7 @@ public class Jeu implements Serializable {
 	        joueurActuel.jouerPoint(index); // Jouer la carte
 		}
 		else if(choix == 2) {
-			System.out.println("Choisissez une carte à jouer pour son pouvoir :");
+			System.out.println("Choisissez une carte a jouer pour son pouvoir :");
 			
 			ArrayList<Carte> main = joueurActuel.getMain();
 			
@@ -289,7 +343,7 @@ public class Jeu implements Serializable {
 			joueurActuel.jouerPouvoir(index, joueurActuel, joueur2); // Jouer la carte
 		}
 		else if(choix == 3) {
-			System.out.println("Choisissez une carte à jouer pour votre vie future :");
+			System.out.println("Choisissez une carte a jouer pour votre vie future :");
 			
 			ArrayList<Carte> main = joueurActuel.getMain();
 			
@@ -302,16 +356,21 @@ public class Jeu implements Serializable {
 		}
 	}
 	
-	// Déroulement d'un tour
+    /**
+     * Deroulement d'un tour du bot (joueur automatique).
+     * 
+     * @param joueurActuel Le joueur actuel (bot).
+     * @param joueur2 Le joueur adverse.
+     */
 		public void jouerBot(Joueur joueurActuel, Joueur joueur2)
 		{
 			// Le joueur piocher une carte de sa pile
 			ArrayList<Carte> pile = joueurActuel.getPile();
 			if(pile.size() > 0) {
 		        Carte carte = pile.get(pile.size() - 1); // Prendre la carte de la Pile
-		        joueurActuel.ajouterMain(carte); // Ajouter cette carte à la Main du joueur
+		        joueurActuel.ajouterMain(carte); // Ajouter cette carte a la Main du joueur
 		        joueurActuel.retirerPile(pile.size() - 1); // Retirer la carte de la Pile
-		        System.out.println(joueurActuel.getNom() + " : Vous avez pioché une carte de votre pile: " + carte.getNom());
+		        System.out.println(joueurActuel.getNom() + " : Vous avez pioche une carte de votre pile: " + carte.getNom());
 			}
 			
 			System.out.println("Voici votre main :");
@@ -334,7 +393,7 @@ public class Jeu implements Serializable {
 			
 			
 			if(choix == 1) {
-				System.out.println("Choisissez une carte à jouer pour ses points :");
+				System.out.println("Choisissez une carte a jouer pour ses points :");
 				
 				ArrayList<Carte> main = joueurActuel.getMain();
 				
@@ -347,7 +406,7 @@ public class Jeu implements Serializable {
 		        joueurActuel.jouerPoint(index); // Jouer la carte
 			}
 			else if(choix == 2) {
-				System.out.println("Choisissez une carte à jouer pour son pouvoir :");
+				System.out.println("Choisissez une carte a jouer pour son pouvoir :");
 				
 				ArrayList<Carte> main = joueurActuel.getMain();
 				
@@ -360,7 +419,7 @@ public class Jeu implements Serializable {
 				joueurActuel.jouerPouvoir(index, joueurActuel, joueur2); // Jouer la carte
 			}
 			else if(choix == 3) {
-				System.out.println("Choisissez une carte à jouer pour votre vie future :");
+				System.out.println("Choisissez une carte a jouer pour votre vie future :");
 				
 				ArrayList<Carte> main = joueurActuel.getMain();
 				
@@ -373,7 +432,9 @@ public class Jeu implements Serializable {
 				joueurActuel.jouerFutur(index); // Jouer la carte
 			}
 		}
-	
+	    /**
+	     * Complete la source avec une partie de la fosse.
+	     */
 	public void completerSource() {
 		ArrayList<Carte> temp = new ArrayList<Carte>();
 		for(int i=0; i<this.fosse.size() - 3; i++) {
@@ -386,21 +447,44 @@ public class Jeu implements Serializable {
 		}
 	}
 	
-	// Getters et Setters
+    /**
+     * Retourne la liste de cartes de la source.
+     * 
+     * @return La liste de cartes source.
+     */
 	public ArrayList<Carte> getSource(){
 		return this.source;
 	}
+    /**
+     * Definit la liste de cartes source.
+     * 
+     * @param source La nouvelle liste de cartes source.
+     */
 	public void setSource(ArrayList<Carte> source) {
 		this.source = source;
 	}
-	
+    /**
+     * Retourne la liste de cartes de la fosse.
+     * 
+     * @return La liste de cartes fosse.
+     */
 	public ArrayList<Carte> getFosse(){
 		return this.fosse;
 	}
+    /**
+     * Definit la liste de cartes fosse.
+     * 
+     * @param fosse La nouvelle liste de cartes fosse.
+     */
 	public void setFosse(ArrayList<Carte> fosse) {
 		this.fosse = fosse;
 	}
-	
+    /**
+     * Sauvegarde l'etat actuel du jeu dans un fichier objet.
+     * 
+     * @param jeu Le jeu a sauvegarder.
+     * @param nom Le nom du fichier de sauvegarde.
+     */
 	public static void sauvegarder(Jeu jeu, String nom)
 	{
 		try {
@@ -410,7 +494,12 @@ public class Jeu implements Serializable {
 			fos.close();
 		} catch (IOException e) {e.printStackTrace();}
 	}
-	
+    /**
+     * Charge un jeu a partir d'un fichier objet.
+     * 
+     * @param nom Le nom du fichier a charger.
+     * @return Le jeu charge.
+     */
 	public static Jeu charger(String nom)
 	{
 		Jeu jeu = new Jeu();
@@ -425,7 +514,13 @@ public class Jeu implements Serializable {
 		
 		return jeu;
 	}
-	
+    /**
+     * Fonction principale du jeu.
+     * Permet de creer un nouveau jeu, de jouer contre un humain ou un bot,
+     * de charger une partie existante, et gere le deroulement du jeu.
+     * 
+     * @param args Les arguments de la ligne de commande.
+     */
 	public static void main(String[] args) {
 	        
 			// Creation d'un nouveau jeu
@@ -436,7 +531,7 @@ public class Jeu implements Serializable {
         	Scanner scanner = new Scanner(System.in);
 			int choix = scanner.nextInt();
 			if(choix == 1) {
-				// création des deux joueurs
+				// creation des deux joueurs
 				monJeu.joueur1 = new Joueur(monJeu, "joueur1");
 			    monJeu.joueur2 = new Joueur(monJeu, "joueur2");
 			}
@@ -465,17 +560,17 @@ public class Jeu implements Serializable {
 			
 		    // jeu
 		    while(true) {
-		    	// On sélectionne le joueur qui doit jouer
+		    	// On selectionne le joueur qui doit jouer
 		    	Joueur joueurActuel = monJeu.selectionnerJoueurActuel();
-		    	// On sélectionne le joueur qui ne doit pas jouer
+		    	// On selectionne le joueur qui ne doit pas jouer
 		    	Joueur joueurVictime = monJeu.selectionnerJoueurVictime();
 		    	
 		    	// On check si le joueur actuel doit recommencer une nouvelle vie
 		    	if(joueurActuel.getMain().size() == 0 && joueurActuel.getPile().size() == 0) {
 		    		int points = joueurActuel.calculerPoint();
 		    		if(points + joueurActuel.getAnneaux() > joueurActuel.getTranscendance() - 1) {
-		    			if(joueurActuel.getTranscendance() == 7) { // Si le joueur actuel a gagné
-		    				System.out.println("Joueur " + joueurActuel.getNom() + ", vous avez gagné !");
+		    			if(joueurActuel.getTranscendance() == 7) { // Si le joueur actuel a gagne
+		    				System.out.println("Joueur " + joueurActuel.getNom() + ", vous avez gagne !");
 		    				break;
 		    			}
 		    			
@@ -507,7 +602,7 @@ public class Jeu implements Serializable {
 			    	String nom;
 			    	nom = scanner.next();
 					Jeu.sauvegarder(monJeu, nom);
-					System.out.println("Partie sauvegardée");
+					System.out.println("Partie sauvegardee");
 				}
 		    }
 	    }
