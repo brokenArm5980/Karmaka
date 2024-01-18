@@ -81,7 +81,7 @@ public class Joueur implements Serializable {
 	public int calculerPoint(){
 		int totalPoint = 0;
 		for(int i = 0; i < this.oeuvre.size(); i++) {
-			totalPoint = totalPoint + oeuvre.get(i).getPoint();
+			totalPoint = totalPoint + this.oeuvre.get(i).getPoint();
 		}
 		return totalPoint;
 	}
@@ -94,7 +94,8 @@ public class Joueur implements Serializable {
 			this.transcendance = this.transcendance + 1;
 			this.setAnneaux(this.getAnneaux() - (this.transcendance - this.calculerPoint()));
 		}
-		nouvelleVie(false);
+		this.nouvelleVie(false);
+		System.out.println("Vous avez transcendé");
 	}
 	
 	public void nouvelleVie(boolean gainAnneau){
@@ -105,22 +106,22 @@ public class Joueur implements Serializable {
 		// Ajouter les oeuvres dans la fosse
 		for(int i = 0; i < this.oeuvre.size(); i++) {
 			Carte carte = this.oeuvre.get(i);
-			retirerOeuvre(i);
+			this.retirerOeuvre(i);
 			this.jeu.ajouterCarteFosse(carte);
 		}
 		
 		// Prendre les cartes de la vie future
 		for (int i = 0; i < this.vieFuture.size(); i++) {
 			Carte carte = this.vieFuture.get(i);
-			retirerVieFuture(i);
-			ajouterMain(carte);
+			this.retirerVieFuture(i);
+			this.ajouterMain(carte);
 		}
 		
 		// Si la main contient moins de 6 cartes
 		if (this.saMain.size() < 6) {
 			while(true){ // On pioche jusqu'à atteindre 6 cartes (main + pile)
 				Carte carte = jeu.piocher();
-				ajouterPile(carte);
+				this.ajouterPile(carte);
 				if (this.saMain.size() + this.pile.size() > 5) {
 					break;
 				}

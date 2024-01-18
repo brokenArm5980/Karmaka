@@ -235,14 +235,12 @@ public class Jeu implements Serializable {
 	public void jouer(Joueur joueurActuel, Joueur joueur2)
 	{
 		// Le joueur piocher une carte de sa pile
-		ArrayList<Carte> pile = joueurActuel.getPile();
-		if(pile.size() > 0) {
-			System.out.println("oui");
-	        Carte carte = pile.get(pile.size() - 1); // Prendre la carte de la Pile
+		if(joueurActuel.getPile().size() > 0) {
+	        Carte carte = joueurActuel.getPile().get(joueurActuel.getPile().size() - 1); // Prendre la carte de la Pile
 	        joueurActuel.ajouterMain(carte); // Ajouter cette carte à la Main du joueur
-	        joueurActuel.retirerPile(pile.size() - 1); // Retirer la carte de la Pile
+	        joueurActuel.retirerPile(joueurActuel.getPile().size() - 1); // Retirer la carte de la Pile
 	        int a = 0;
-	        for (int i=0; i<pile.size(); i++) {
+	        for (int i=0; i<joueurActuel.getPile().size(); i++) {
 	        	a = a + 1;
 	        }
 	        System.out.println(joueurActuel.getNom() + " : Vous avez pioché une carte de votre pile: " + carte.getNom());
