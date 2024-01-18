@@ -87,7 +87,13 @@ public class Joueur implements Serializable {
 	}
 	
 	public void transcender(){
-		this.transcendance = this.transcendance + 1;
+		if (this.calculerPoint() > this.transcendance - 1) {
+			this.transcendance = this.transcendance + 1;
+		}
+		else if (this.calculerPoint() + this.getAnneaux() > this.transcendance) {
+			this.transcendance = this.transcendance + 1;
+			this.setAnneaux(this.getAnneaux() - (this.transcendance - this.calculerPoint()));
+		}
 		nouvelleVie(false);
 	}
 	

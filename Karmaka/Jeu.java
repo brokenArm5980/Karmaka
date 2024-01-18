@@ -237,6 +237,7 @@ public class Jeu implements Serializable {
 		// Le joueur piocher une carte de sa pile
 		ArrayList<Carte> pile = joueurActuel.getPile();
 		if(pile.size() > 0) {
+			System.out.println("oui");
 	        Carte carte = pile.get(pile.size() - 1); // Prendre la carte de la Pile
 	        joueurActuel.ajouterMain(carte); // Ajouter cette carte à la Main du joueur
 	        joueurActuel.retirerPile(pile.size() - 1); // Retirer la carte de la Pile
@@ -474,7 +475,7 @@ public class Jeu implements Serializable {
 		    	// On check si le joueur actuel doit recommencer une nouvelle vie
 		    	if(joueurActuel.getMain().size() == 0 && joueurActuel.getPile().size() == 0) {
 		    		int points = joueurActuel.calculerPoint();
-		    		if(points > joueurActuel.getTranscendance() - 1) {
+		    		if(points + joueurActuel.getAnneaux() > joueurActuel.getTranscendance() - 1) {
 		    			if(joueurActuel.getTranscendance() == 7) { // Si le joueur actuel a gagné
 		    				System.out.println("Joueur " + joueurActuel.getNom() + ", vous avez gagné !");
 		    				break;
