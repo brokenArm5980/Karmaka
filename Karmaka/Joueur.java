@@ -1,8 +1,11 @@
 package Karmaka;
 import java.util.*;
-public class Joueur {
-	int anneaux;
-	int transcendance;
+import java.io.*;
+public class Joueur implements Serializable {
+	private static final long serialVersionUID = 2L;
+	private String nom;
+	private int anneaux;
+	private int transcendance;
 	private ArrayList<Carte> pile;
 	private ArrayList<Carte> vieFuture;
 	private ArrayList<Carte> oeuvre;
@@ -10,7 +13,7 @@ public class Joueur {
 	private Jeu jeu;
 	
 	// Constructeur
-	public Joueur(Jeu jeu) {
+	public Joueur(Jeu jeu, String nom) {
 		this.anneaux = 0;
 		this.transcendance = 4;
 		this.pile = new ArrayList<>();
@@ -18,35 +21,53 @@ public class Joueur {
 		this.oeuvre = new ArrayList<>();
 		this.saMain = new ArrayList<>();
 		this.jeu = jeu;
+		this.nom = nom;
 	}
 	
 	public void piocherPile(){
 		int index = this.pile.size() - 1;
 		Carte carte = this.pile.get(index);
-		retirerPile(index);
-		ajouterMain(carte);
+		this.retirerPile(index);
+		this.ajouterMain(carte);
 	}
 	
 	public void jouerPoint(int index){
 		Carte carte = this.saMain.get(index);
-		retirerMain(index);
-		ajouterOeuvre(carte);
+		this.retirerMain(index);
+		this.ajouterOeuvre(carte);
 	}
 	
 	public void jouerPouvoir(int index, Joueur executeur, Joueur victime){
 		Carte carte = this.saMain.get(index);
+		this.retirerMain(index);
+		
+		// Le joueur victime peut choisir de récupérer la carte pour sa vie future
+		System.out.println(victime.getNom() + ", voulez vous récupérer la carte " + carte.getNom() + " dans votre vie future ? oui: tapez 1, non: tapez 2");
+		int choix = 0;
+		if(victime.nom == "bot1") {
+			double al = Math.random() * 2 + 1;
+			choix = (int) al;
+			System.out.println("Le bot a choisi : " + choix);
+		}
+		else {
+			Scanner scanner = new Scanner(System.in);
+			choix = scanner.nextInt();
+		}
+		if(choix == 1) {
+			victime.ajouterVieFuture(carte); // Le joueur victime récupère la carte
+		}
+		else if(choix == 2) {
+			this.jeu.ajouterCarteFosse(carte); // La carte est défossée
+		}
+		
 		carte.executerPouvoir(executeur, victime);
-		retirerMain(index);
 	}
 	
 	public void jouerFutur(int index){
 		Carte carte = this.saMain.get(index);
-		retirerMain(index);
-		ajouterVieFuture(carte);
+		this.retirerMain(index);
+		this.ajouterVieFuture(carte);
 	}
-	
-	// Permet au joueur de passer son tour
-	public void passerTour(){}
 	
 	// Permet de vérifier si le joueur a gagné la partie
 	public boolean estGagnant(){
@@ -177,5 +198,9 @@ public class Joueur {
 	}
 	public void setTranscendance(int transcendance){
 		this.transcendance = transcendance;
+	}
+	
+	public String getNom() {
+		return this.nom;
 	}
 }
