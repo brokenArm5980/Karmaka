@@ -17,6 +17,12 @@ public class Carte implements Serializable {
 		this.point = point;
 		this.jeu = jeu;
 	}
+	/***
+	 * npiidhvbibdpvbqidUBVPIUBSDPIUVBIUvbDVIBSD
+	 * @param executeur
+	 * @param victime
+	 */
+	
 	
 	public void executerPouvoir(Joueur executeur, Joueur victime) {
 		
