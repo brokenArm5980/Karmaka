@@ -129,12 +129,6 @@ public class Joueur implements Serializable {
 		}
 	}
 	
-	public void choisirCarte(){
-		for(int i = 0; i < this.saMain.size(); i++) {
-			System.out.println(saMain.get(i));
-		}
-	}
-	
 	// Ajouter et Retirer
 	public void ajouterMain(Carte carte) {
 		this.saMain.add(carte);
