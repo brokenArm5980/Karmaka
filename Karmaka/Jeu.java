@@ -402,21 +402,21 @@ public class Jeu implements Serializable {
 		this.fosse = fosse;
 	}
 	
-	public static void sauvegarder(Jeu jeu)
+	public static void sauvegarder(Jeu jeu, String nom)
 	{
 		try {
-			FileOutputStream fos = new FileOutputStream("data.obj");
+			FileOutputStream fos = new FileOutputStream(nom + ".obj");
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			oos.writeObject(jeu);
 			fos.close();
 		} catch (IOException e) {e.printStackTrace();}
 	}
 	
-	public static Jeu charger()
+	public static Jeu charger(String nom)
 	{
 		Jeu jeu = new Jeu();
 		try {
-			FileInputStream fis = new FileInputStream("data.obj");
+			FileInputStream fis = new FileInputStream(nom + ".obj");
 			ObjectInputStream ois = new ObjectInputStream(fis);
 			jeu = (Jeu)ois.readObject();
 			fis.close();
@@ -457,7 +457,11 @@ public class Jeu implements Serializable {
 		    scanner = new Scanner(System.in);
 			choix = scanner.nextInt();
 			if(choix == 1) {
-				monJeu = Jeu.charger();
+				System.out.println("Entrez le nom de la partie :");
+			    scanner = new Scanner(System.in);
+			    String nom;
+				nom = scanner.next();
+				monJeu = Jeu.charger(nom);
 			}
 			
 		    // jeu
@@ -499,7 +503,12 @@ public class Jeu implements Serializable {
 		    	scanner = new Scanner(System.in);
 				choix = scanner.nextInt();
 				if(choix == 1) {
-					Jeu.sauvegarder(monJeu);
+					System.out.println("Entrez le nom de la sauvegarde :");
+			    	scanner = new Scanner(System.in);
+			    	String nom;
+			    	nom = scanner.next();
+					Jeu.sauvegarder(monJeu, nom);
+					System.out.println("Partie sauvegardée");
 				}
 		    }
 	    }
